@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed Code</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/theme/material.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        #timer-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: blue;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #container {
+            display: flex;
+            width: 90%;
+            height: 90%;
+        }
+
+        #left-panel {
+            flex: 1;
+            border-right: 1px solid #ccc;
+        }
+
+        #right-panel {
+            flex: 1;
+            padding: 20px;
+        }
+
+        #output {
+            margin-top: 20px;
+
+        }
+        #alert{
+            border-radius: 20px;
+            background-color: black;
+            color:red;
+        }
+
+        .container img {
+            width: 100px; /* Adjust the width as needed */
+            height: auto; /* Maintain aspect ratio */
+            display: block; /* Ensure it behaves like a block element */
+            margin: 0 auto;
+             /* Center the image horizontally */
+        }
+
+        .code-editor {
+            height: calc(100% - 40px); /* Adjust for the height of other elements */
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="timer-container">
+        <span id="timer"></span>
+    </div>
+    <div id="container">
+        <div id="left-panel">
+            <div class="container">
+                <h1><b>Questions and Test Cases</b></h1>
+                <hr>
+                <!-- Sample question and test cases -->
+                <div class="form-group">
+                    <label for="question"><b>Question:</b></label>
+                    <div>{{data.question_text}}</div>
+                </div>
+                <div class="form-group">
+                    <label for="constraints"><b>Constraints:</b></label>
+                    <div>{{data.constraint}}</div>
+                </div>
+                <div class="form-group">
+                    <label for="testInput"><b>Test Case Input:</b></label>
+                    <div>{{data1.test_input}}</div>
+                </div>
+                <div class="form-group">
+                    <label for="expectedOutput"><b>Expected Output:</b></label>
+                    <div>{{data1.expected_output}}</div>
+                </div>
+                <!-- Add more questions and test cases here -->
+            </div>
+        </div>
+        <div id="right-panel">
+            <div class="container">
+                <img src="/templates/images/logo.png" alt="Logo">
+                <h1>Feed Code</h1>
+                <div id="code" class="code-editor"></div>
+                <label for="userInput">User Input:</label>
+                <textarea id="userInput" class="form-control" rows="3"></textarea>
+                <div class="form-group">
+                    <div class="form-check mt-2">
+                        <input type="checkbox" class="form-check-input" id="customTestCase">
+                        <label class="form-check-label" for="customTestCase">Custom Test Case</label>
+                    </div>
+                </div>
+                <select id="language" class="form-control mt-3">
+                    <option value="python">Python</option>
+                    <option value="c">C</option>
+                    <option value="cpp">C++</option>
+                    <option value="java">Java</option>
+                    <!-- Add options for other languages -->
+                </select>
+                <button id="runBtn" class="btn btn-primary mt-3">Run</button>
+                <div id="output" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/mode/python/python.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var languageMode = "python"; // Default to Python
+        var editor = CodeMirror(document.getElementById("code"), {
+            mode: "python", // Start with Python mode
+            theme: "material",
+            lineNumbers: true
+        });
+
+
+
+        $("#runBtn").click(function() {
+            alert("123");
+            let code = editor.getValue();
+            let language = $("#language").val();
+            let userInput = $("#userInput").val(); // Capture user input
+            let questionId = {{ data.question_id }};
+            let username = '{{user_name}}';
+            let isChecked = $("#customTestCase").prop("checked");
+            $("#output").empty();
+            if (isChecked) {
+                $.ajax({
+                    url: "http://localhost:8000/custom",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ code: code, language: language, userInput: userInput, username: username}), // Send user input
+                    success: function(response) {
+                        alert(response.success);
+                        if (response.success) {
+                            alert("321");
+                            $("#output").append(`<div class="alert alert-info">User Input: ${userInput}</div>`); // Display user input
+                            $("#output").append(`<div class="alert alert-info">Output: ${response.output}</div>`); // Display the output
+                        } else {
+                            $("#output").html(`<div class="alert alert-danger">${response.message}</div>`);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert("ertyuio");
+                        $("#output").html(`<div class="alert alert-danger">${xhr.responseText}</div>`);
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: "http://localhost:8000/runcode",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ code: code, language: language, question_id: questionId ,username: username}), // Send user input
+                    success: function(response) {
+                        if (response.success) {
+                            $("#output").append(`<div class="alert alert-info">Output: ${response.success}</div>`); // Display the output
+                        } else {
+                            $("#output").html(`<div class="alert alert-danger">${response.message}</div>`);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        $("#output").html(`<div class="alert alert-danger">${xhr.responseText}</div>`);
+                    }
+                });
+            }
+        });
+    });
+
+    function updateTimer() {
+            // Get the current time
+            const currentTime = new Date();
+
+            // Get the end time of the contest (assumed to be provided as an ISO 8601 string)
+            const endTime = new Date("{{ contests.endDate }}T{{ contests.endtime }}");
+
+            // Calculate the time difference
+            const timeDiffEnd = endTime - currentTime;
+
+            // Determine the status and update the display accordingly
+            if (timeDiffEnd > 0) {
+                // Contest is ongoing
+                const hours = Math.floor(timeDiffEnd / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDiffEnd % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDiffEnd % (1000 * 60)) / 1000);
+                document.getElementById('timer').textContent = `Contest ends in ${hours}h ${minutes}m ${seconds}s`;
+                document.getElementById('runBtn').removeAttribute('disabled');
+            } else {
+                // Contest has ended
+                document.getElementById('timer').textContent = `Contest has ended`;
+                document.getElementById('runBtn').setAttribute('disabled', 'disabled');
+            }
+        }
+        
+        // Update the timer every 1000 milliseconds (1 second)
+        setInterval(updateTimer, 1000);
+
+        // Initial call to update timer immediately
+        updateTimer();
+</script>
+    
+</body>
+</html>
+

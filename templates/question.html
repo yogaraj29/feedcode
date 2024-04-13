@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/templates/css/question.css">
+</head>
+<body>
+    <header class="d-flex flex-wrap justify-content-between align-items-center py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+          <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+          <img src="/templates/images/logo.png" alt="logo" style="width: 60px;height: 50px;">
+        </a>
+      
+        <ul class="nav nav-pills">
+          <li class="nav-item"><a href="/home" class="nav-link" aria-current="page">Home</a></li>
+          <li class="nav-item"><a href="/contest" class="nav-link">Create Contests</a></li>
+          <li class="nav-item"><a href="/list" class="nav-link">Contests</a></li>
+          <li class="nav-item"><a href="/profile" class="nav-link">Profile</a></li>
+          <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="/about" class="nav-link">Logout</a></li>
+        </ul>
+        <div class="profile-image d-flex align-items-center">
+          <!-- Insert the user's profile image here -->
+          <!-- Example: -->
+          <img src="/templates/images/profile.png" alt="Profile Image" style="width: 40px; height: 40px; border-radius: 50%;">
+        </div>
+        
+    
+    
+      </header>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <main>
+                    <!-- <h1 class="text-center">Questions</h1> -->
+                    <form id="addQuestionForm">
+                        <button type="button" class="btn btn-primary d-block mx-auto mb-3" data-bs-toggle="modal" data-bs-target="#questionModal">
+                            Add Questions
+                        </button>
+                    </form>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="questionModalLabel">Add Question</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="questionForm">
+                                        
+                                        <div class="mb-3">
+                                            <label for="topic" class="form-label">Topic:</label>
+                                            <input type="text" class="form-control" id="topic" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label">Description:</label>
+                                            <textarea class="form-control" id="description" rows="3" required></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="constraints" class="form-label">Constraints:</label>
+                                            <textarea class="form-control" id="constraints" rows="3" required></textarea>
+                                        </div>
+                                        <hr>
+                                        <div id="ioContainer">
+                                        </div>
+                                        <button type="button" class="btn btn-primary mt-3" id="addIOBtn">Add Input Output</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" onclick="add_question()">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">S.NO</th>
+                                <th scope="col">Topic</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in question %}
+                            <tr>
+                                <td>{{loop.index}}</td>
+                                <td>{{i.topic}}</td>
+                                
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <!-- scripts -->
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+                    <script src="/templates/js/question.js"></script>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="d-flex justify-content-center">
+        <a href="/home" class="btn btn-primary btn-sm mb-3">Submit</a>
+    </div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    function add_question(){
+        let last_id={{lastid}};
+        let formData= new FormData();
+        formData.append("topic",$("#topic").val());
+        formData.append("description",$("#description").val());
+        formData.append("constraints",$("#constraints").val());
+        formData.append("contestid",last_id);
+        let sip=[];
+        let sop=[];
+        alert(ioCount);
+        for(let i=1;i<ioCount;i++){
+        
+            sip.push(document.getElementById('in'+i).value);
+            sop.push(document.getElementById('op'+i).value);
+            
+        }
+        alert(sip);
+        formData.append("sip",sip);  
+        formData.append("sop",sop);
+        $.ajax({
+            type: 'POST',
+            url: '/add_question',
+            data: formData,
+            encode: true,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+
+        }).done(function(res){
+            if(res=="Done"){
+                location.reload();
+            }
+            
+
+        });
+
+    }
+</script>
+</html>

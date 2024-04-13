@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="/templates/css/leaderboard.css">
+</head>
+<body>
+    <div class="container">
+    <div class="container-wrap">
+        <section id="leaderboard">
+            <nav class="ladder-nav">
+                <div class="ladder-title">
+                    <h1>Leaderboard</h1>
+                </div>
+                <div class="ladder-search">
+                    <input type="text" id="search-leaderboard" class="live-search-box" placeholder="Search" />
+                </div>
+            </nav>
+            <table id="rankings" class="leaderboard-results" width="100%">
+                <thead>
+                    <tr>
+                        <th>S.NO</th>
+                        <th>Name</th>
+                        <th>Question Solved</th>
+                        <th>Points</th>
+                    </tr>
+                    <tbody>
+                        {% if status==0 %}
+                        <td style="padding-left: 40px;">you</td>
+                        <td style="padding-left: 15px;">{{user.Username}}</td>
+                        <td style="padding-left: 30px;">{{user.question_id|length}}</td>
+                        <td style="padding-left: 35px;">{{user.score}}</td>
+                        {% endif %}
+                    </tbody>
+                </thead>
+                <tbody>
+                    {% for i in results %}
+                    <td style="padding-left: 40px;">{{loop.index}}</td>
+                    <td style="padding-left: 15px;">{{i.Username}}</td>
+                    <td style="padding-left: 30px;">{{i.question_id|length}}</td>
+                    <td style="padding-left: 35px;">{{i.score}}</td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+    </div>
+
+    <!-- <footer class="foot">
+        <p>&copy; 2024 App. All rights reserved.</p>
+        <p>Developed By <a href="#">Feed Code Team</a></p>
+    </footer> -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/templates/js/leaderboard.js"></script>
+</body>
+</html>

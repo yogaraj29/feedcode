@@ -1,0 +1,231 @@
+/* Leaderboard */
+* {
+    margin:0;
+    padding:0;
+    font-family:Helvetica, Arial, sans-serif;
+  }
+  body {
+    background:#ffffff;/*#232323*/
+  }
+  .container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 60px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+.container:hover {
+    box-shadow: 0 0 150px rgba(71, 117, 70, 0.2);
+}
+  input[type=text], textarea, input[type=email], input[type=password], input[type=tel], input[type=url], input[type=search], input[type=date] {
+      padding: 10px;
+      width: 100%;
+      font-size: 14px;
+      font-family: inherit;
+      line-height: 24px;
+      color: #555;
+      background-color: #f1f1f1;
+      border: none;
+      transition: all 0.2s ease;
+      -webkit-transition: all 0.2s ease;
+  }
+  /*input[type=text],*/ textarea, input[type=email], input[type=password], input[type=tel], input[type=url], input[type=search], input[type=date], .material.woocommerce-page[data-form-style="default"] input#coupon_code {
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+      border: 2px solid rgba(0,0,0,0);
+  }
+
+
+    #leaderboard {
+        padding:50px;
+    }
+    .ladder-nav {
+        display:flex;
+        flex-wrap:wrap;
+        align-items: center;
+        background:#76a1da;
+        padding:10px 25px;
+        /* border-radius:10px; */
+        /* border:1px solid #686EF9; */
+    }
+    .ladder-title {
+      flex:2;
+    }
+    .ladder-search {
+      flex:1;
+      padding-right:25px;
+    }
+    .ladder-title {
+      font-size:20px;
+      color:#ffffff!important;
+      font-weight:bold;
+      text-transform:uppercase;
+    }
+  .leaderboard-results {
+    text-align:left;
+    border-collapse: collapse;
+  }
+  .leaderboard-results thead th {
+    padding: 25px;
+    color:#000000;
+    font-size:14px;
+    font-weight:bold;
+  }
+  .leaderboard-results tbody td {
+    padding:10px 10px;
+    background:#7082e5;/*#80ff80*/  
+    font-size:16px;
+    border-bottom:2px solid #ffffff;
+  }
+  .leaderboard-results tbody tr:hover td {
+      background:#c7cae1;
+  }
+  .leaderboard-results tbody tr {
+    color:#747474;
+  }
+  .leaderboard-results tbody span {
+    font-weight:bold;
+    padding:10px 15px;
+    border-radius:50%;
+  }
+  .leaderboard-results tbody tr span {
+    background:#262626;
+    color:#747474;
+  }
+  .leaderboard-results tbody tr:nth-child(odd) {
+    background-color: #d3d3d3;
+  }
+
+  .leaderboard-results tbody tr:nth-child(even) {
+    background-color: #c28282;
+  }
+
+  td{
+    color: white;
+  }
+
+
+.visibility {
+    margin-bottom: 20px;
+}
+.visibility label {
+    display: block;
+    margin-bottom: 10px;
+}
+.visibility input[type="radio"] {
+    display: none;
+}
+.visibility input[type="radio"] + label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #eee;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.visibility input[type="radio"]:hover + label {
+    background-color: #ddd;
+}
+.visibility input[type="radio"]:checked + label {
+    background-color: #00b33c;
+    color: #fff;
+}
+
+
+/* Finish Time*/
+
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+
+
+
+
+/* program Solved */
+
+.program-solved {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+.program-solved .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+.program-solved .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.program-solved .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+h6{
+  color: #fff;
+}

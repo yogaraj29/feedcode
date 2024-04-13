@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions</title>
+    <link rel="stylesheet" href="/templates/css/qlist.css">
+    <style>
+        /* Style for the timer container */
+        #timer-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: blue;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Timer placeholder -->
+    <div id="timer-container">
+        <span id="timer"></span>
+    </div>
+
+    {% for i in cont %}
+    <div class="card">
+        <h2>{{i.topic}}</h2>
+        <div class="description">{{i.question_text}}</div>
+        <a href="/index?question={{ i.question_id }}" class="button">Solve</a>
+    </div>
+    {% endfor %}
+
+    <!-- JavaScript to update the timer -->
+    <script>
+        // Function to update the timer
+        function updateTimer() {
+            // Get the current time
+            const currentTime = new Date();
+
+            // Get the end time of the contest (assumed to be provided as an ISO 8601 string)
+            const endTime = new Date("{{ contests.endDate }}T{{ contests.endtime }}");
+
+            // Calculate the time difference
+            const timeDiffEnd = endTime - currentTime;
+
+            // Determine the status and update the display accordingly
+            if (timeDiffEnd > 0) {
+                // Contest is ongoing
+                const hours = Math.floor(timeDiffEnd / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDiffEnd % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDiffEnd % (1000 * 60)) / 1000);
+                document.getElementById('timer').textContent = `Contest ends in ${hours}h ${minutes}m ${seconds}s`;
+            } else {
+                // Contest has ended
+                document.getElementById('timer').textContent = `Contest has ended`;
+            }
+        }
+
+        // Update the timer every 1000 milliseconds (1 second)
+        setInterval(updateTimer, 1000);
+
+        // Initial call to update timer immediately
+        updateTimer();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.card {
+    width: 70%;
+    margin: 10px auto;
+    padding: 20px;
+    /* height:10em; */
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+}
+.card:hover {
+    box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+}
+h2 {
+    text-align: center;
+    color: #333;
+}
+.difficulty{
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #333;
+}
+.description {
+    margin-top: 10px;
+    color: #666;
+}
+.button {
+    display: block;
+    width: 10%;
+    padding: 10px;
+    margin-top: 20px;
+    text-align: center;
+    background-color: #40a000;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: #45563f;
+}

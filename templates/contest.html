@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head class="flex">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Contest</title>
+    <!-- link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="/templates/css/contest.css">
+    <link rel="stylesheet" href="/templates/css/header.css">
+
+</head>
+<body>
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+          <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+          <img src="/templates/images/logo.png" alt="logo" style="width: 60px;height: 50px;">
+        </a>
+  
+        <ul class="nav nav-pills ">
+          <li class="nav-item"><a href="/home" class="nav-link" aria-current="page">Home</a></li>
+          <li class="nav-item"><a href="/contest" class="nav-link">Create Contests</a></li>
+          <li class="nav-item"><a href="/contestlist" class="nav-link">Contests</a></li>
+          <li class="nav-item"><a href="/profile" class="nav-link">Profile</a></li>
+          <li class="nav-item"><a href="/home" class="nav-link">About</a></li>
+        </ul>
+        <div class="profile-image d-flex align-items-center">
+            <!-- Insert the user's profile image here -->
+            <!-- Example: -->
+            <img src="/templates/images/profile.png" alt="Profile Image" style="width: 40px; height: 40px; border-radius: 50%;">
+          </div>
+      </header>
+    <!-- <div class="overlap">
+        <div>Home</div>
+        <div>Home</div>
+        <div>Home</div>
+        <div>Home</div>
+    </div> -->
+    <main class="container">
+        <section class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="text-center mb-4">Create Contest</h1>
+                <form action="/create" method="post">
+                    <div class="mb-3">
+                        <label for="contestName" class="form-label">Contest Name:</label>
+                        <input type="text" required class="form-control" id="contestName" name="contestName">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="startDate" class="form-label">Start Date:</label>
+                            <input type="text" required class="form-control bg-white" id="startDate" name="startDate" placeholder="Select start date">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="startTime" class="form-label">Start Time:</label>
+                            <input type="time" required class="form-control bg-white" id="startTime" name="startTime">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="endDate" class="form-label">End Date:</label>
+                            <input type="text" required class="form-control bg-white" id="endDate" name="endDate" placeholder="Select end date">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="endtime" class="form-label">End Time:</label>
+                            <input type="time" required class="form-control bg-white" id="endtime" name="endtime">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="organisationType" class="form-label">Organization Type:</label>
+                            <select class="form-select" required id="organisationType" name="organisationType">
+                                <option value="school">School</option>
+                                <option value="college">College</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="organisationName" class="form-label">Organization Name:</label>
+                            <input type="text" required class="form-control" id="organisationName" name="organisationName">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="visibility" class="form-label">Visibility:</label>
+                        <select class="form-select" required id="visibility" name="visibility">
+                            <option value="public">Public</option>
+                            <option value="private">Private</option>
+                        </select>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Next</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- script-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="/templates/js/contest.js"></script>
+    <script>
+let arro=document.querySelector('.down');
+let dis=document.querySelector('.overlap');
+let c=0;
+function arrow(){
+    if(c==0){
+        arro.style.transform="rotate(180deg)";
+        arro.style.transition="1s";
+        dis.style.opacity="1"
+        c=1
+    }
+    else{
+        arro.style.transform="rotate(0deg)"
+        arro.style.transition="1s"
+        dis.style.opacity="0"
+        c=0
+    }
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+/* listcontest.css */
+
+body {
+  font-family: 'Noto Serif Ahom';
+  background: linear-gradient(to right, #D4FAFC, #D4FAFC);
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.contest {
+  width: 250px;
+  height: 340px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.2s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.contest:hover {
+  transform: translateY(-10px);
+}
+
+.contest img {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+}
+
+.contest-details {
+  padding: 15px;
+}
+
+h3 {
+  margin: 0;
+  font-size: 1.5em;
+  color: #333;
+}
+
+p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.status-tag {
+  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.tag-completed {
+  background-color: #dc3545; /* Red color */
+}
+
+.tag-participate {
+  background-color: #28a745; /* Green color */
+}

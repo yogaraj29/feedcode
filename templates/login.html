@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/templates/css/login.css">
+    <script src="/templates/js/login.js"></script>
+    <title>Login Page </title>
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form>
+                <h1>Create Account</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your email for registeration</span>
+            <input type="email"  id="signup-username"placeholder="Username" required>
+            <input type="password" id="signup-email"placeholder="password" required>
+            <input type="password" id="signup-password"placeholder="Reenter-Password" required>
+                <button  type="button" onclick="sign()">Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form>
+                <h1>Sign In</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your email password</span>
+                <input type="email"  id="login-user" placeholder="Username" placeholder="Email">
+                <input type="password" id="login-password" placeholder="Password"  placeholder="Password">
+                <a href="">Forget Your Password?</a>
+                <button type="button" onclick="login()">Sign In</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Already have an account?</p>
+                    <button class="hidden" id="login">Sign In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Hello!</h1>
+                    <p>Don't have an account? </p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('container');
+    const registerBtn = document.getElementById('register');
+    const loginBtn = document.getElementById('login');
+
+    registerBtn.addEventListener('click', () => {
+        container.classList.add("active");
+    });
+
+    loginBtn.addEventListener('click', () => {
+        container.classList.remove("active");
+    });
+});
+    function login(){
+let formData= new FormData();
+formData.append("login_user",$("#login-user").val());
+formData.append("login_password",$("#login-password").val());
+
+
+$.ajax({
+    type: 'POST',
+    url: '/logcheck',
+    data: formData,
+    contentType: false, 
+    processData: false, 
+    dataType: 'json',
+
+}).done(function(msg){
+    if(msg=="Invalid Creditional"){
+        alert("Invalid user"); 
+        $("#err").text(msg);
+        
+    }
+    else{
+        window.location.href="/home";
+    }
+
+});
+
+}
+
+function sign(){
+let formData= new FormData();
+formData.append("signup_username",$("#signup-username").val());
+formData.append("signup_email",$("#signup-email").val());
+formData.append("signup_password",$("#signup-password").val());
+
+let pass1=$("#signup-email").val();
+let pass2=$("#signup-password").val();
+if (pass1 !== pass2) {
+    alert("Passwords do not match. Please enter the same password in both fields.");
+    return;
+}
+
+
+
+$.ajax({
+    type: 'POST',
+    url: '/signup',
+    data: formData,
+    contentType: false, 
+    processData: false, 
+    dataType: 'json',
+
+}).done(function(msg){
+    if(msg=="Invalid Creditional"){
+        $("#err").text(msg);
+        
+    }
+    else{
+        window.location.href="/home";
+    }
+
+});
+
+}
+</script>
+
+</html>

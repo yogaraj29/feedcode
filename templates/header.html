@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header</title>
+    <link rel="stylesheet" href="/templates/css/header.css">
+</head>
+<body>
+<header class="flex">
+    <ul class="flex unorder" type="none">
+        <li>Home</li>
+        <li>Contact</li>
+        <li>AboutUS</li>
+        <li>Details</li>
+    </ul>
+    <div class="profile flex items-center" onclick="arrow()">
+        <img src="assets/person-circle.svg" alt="profile" class="profileImg">
+        <p>Profile</p>
+        <img src="assets/chevron-down.svg" alt="down" class="down">
+    </div>
+    <div>
+        <img src="/templates/images/logo.png" alt="logo" class="logo" width="20" height="20">
+    </div>
+</header>
+    <div class="overlap">
+        <div>Home</div>
+        <div>Home</div>
+        <div>Home</div>
+        <div>Home</div>
+    </div>
+    <script>
+        let arro=document.querySelector('.down');
+let dis=document.querySelector('.overlap');
+let c=0;
+function arrow(){
+    if(c==0){
+        arro.style.transform="rotate(180deg)";
+        arro.style.transition="1s";
+        dis.style.opacity="1"
+        c=1
+    }
+    else{
+        arro.style.transform="rotate(0deg)"
+        arro.style.transition="1s"
+        dis.style.opacity="0"
+        c=0
+    }
+}
+    </script>
+</body>
+</html>
